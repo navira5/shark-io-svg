@@ -1,36 +1,34 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import $ from 'jquery';
-import List from './components/List.jsx';
+import Node from './components/Node.jsx';
+import styled from 'styled-components';
+
+const Svg = styled.svg`
+  border: 1px solid #ddd;
+  width: 100%;
+  height: 400px;
+`;
+
 
 class App extends React.Component {
   constructor(props) {
-    super(props);
-    this.state = { 
-      items: []
+    super(props)
+    this.state = {
+     
     }
+    
   }
 
-  componentDidMount() {
-    $.ajax({
-      url: '/items', 
-      success: (data) => {
-        this.setState({
-          items: data
-        })
-      },
-      error: (err) => {
-        console.log('err', err);
-      }
-    });
-  }
-
-  render () {
-    return (<div>
-      <h1>Item List</h1>
-      <List items={this.state.items}/>
-    </div>)
+  
+  render() {
+    return (
+      <Svg>
+        <Node x={20} y={20} />
+      </Svg>
+    )
   }
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
+
+
