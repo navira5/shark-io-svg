@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Node from './components/Node.jsx';
 import styled from 'styled-components';
+import { throws } from 'assert';
 
 const Svg = styled.svg`
   border: 1px solid #ddd;
@@ -13,18 +14,33 @@ const Svg = styled.svg`
 class App extends React.Component {
   constructor(props) {
     super(props)
+    
     this.state = {
-     
+      newNode: [<Node />]
     }
+
+
     
   }
 
-  
+  handleNewNode() {
+    this.setState({
+      newNode: [...this.state.newNode, <Node />]
+    })
+    
+  }
+
   render() {
+    
+
     return (
+      <div>
       <Svg>
-        <Node x={20} y={20} />
+        {this.state.newNode.map(node => node)}
       </Svg>
+        <button onClick={this.handleNewNode.bind(this)}> Click me</button>
+      </div>
+     
     )
   }
 }

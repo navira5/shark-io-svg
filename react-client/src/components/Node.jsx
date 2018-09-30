@@ -6,8 +6,8 @@ class Node extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      x: this.props.x,
-      y: this.props.y
+      x: 20,
+      y: 20
     }
     this.handleMouseMove = this.handleMouseMove.bind(this);
   }
@@ -51,17 +51,11 @@ class Node extends React.Component {
           onMouseDown={this.handleMouseDown.bind(this)}
           onMouseUp={this.handleMouseUp.bind(this)}
           />
-
           <text x={x + 50} y={y + 55}>Client</text>
+        <input type="text" />
       </g>
-      
-      // <circle
-      //   r="20"
-      //   cx={x}
-      //   cy={y}
-      //   onMouseDown={this.handleMouseDown.bind(this)}
-      //   onMouseUp={this.handleMouseUp.bind(this)}
-      // />
+   
+   
 
 
     )
