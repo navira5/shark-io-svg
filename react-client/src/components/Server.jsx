@@ -2,14 +2,12 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom';
 import Draggable from 'react-draggable';
 
-class Node extends React.Component {
+class Server extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      x: 20,
-      y: 20,
-      key: this.props.index
-      
+      x: 150,
+      y: 20
     }
     this.handleMouseMove = this.handleMouseMove.bind(this);
   }
@@ -40,35 +38,27 @@ class Node extends React.Component {
     });
   }
 
-
-
   render() {
-    console.log('key', this.props.index)
     const { x, y } = this.state;
     return (
       <g>
-        <rect 
+        <rect
           x={x}
-          y={y} 
-          width="100" 
-          height="100" 
-          fill="yellow"
+          y={y}
+          width="100"
+          height="100"
+          fill="red"
           onMouseDown={this.handleMouseDown.bind(this)}
           onMouseUp={this.handleMouseUp.bind(this)}
-          onClick={() => this.props.clientForm()}
-         
-          />
-          <text x={x + 45} y={y + 55}>Client {this.props.index}</text>
-          
+        />
+        <text x={x + 50} y={y + 55}>Server</text>
+        
       </g>
-   
-   
-
 
     )
   }
 }
 
 
-export default Node;
+export default Server;
 
