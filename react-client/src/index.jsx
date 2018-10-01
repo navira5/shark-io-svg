@@ -13,7 +13,6 @@ const Svg = styled.svg`
   height: 400px;
 `;
 
-
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -23,14 +22,16 @@ class App extends React.Component {
       newNode: [],
       newServer: [],
       newDB: [],
-      routes: {
-        client: [{index: 0, get: '', post: ''}],
-        server: [],
-        database: [],
-      },
       clientGet: '',
-      clientPost: ''
-    }    
+      clientPost: '',
+      clientIndex: null
+    } 
+    this.updateClientIndex = this.updateClientIndex.bind(this)   
+    this.toggleClientRoutesForm = this.toggleClientRoutesForm.bind(this)
+  }
+
+  updateClientIndex(index) {
+    this.setState({ clientIndex: index})
   }
 
   handleNewNode() {
@@ -65,15 +66,24 @@ class App extends React.Component {
     })
   }
 
+ 
+  updateGetDetails(e) {
+    this.setState({ clientGet: e.target.value })
+  }
+
+  updatePostDetails(e) {
+    this.setState({ clientPost: e.target.value })
+  }
+
+  updateClientIndex(index) {
+    this.setState({ clientIndex: index, showClientForm: !this.state.showClientForm})
+  }
+
   render() {
     
-    const displayIndex = () => {
-      this.state.newNode.forEach((item, i )=> console.log('index-->', i))
-    }
+  const showRoutes = this.state.showClientForm ? <Client index={this.state.clientIndex}/> : null;
 
-    const clientForm = this.state.showClientForm === true ? <Client/> : null;
 
-    displayIndex();
     return (
       <div>
         <h1>Shark.io</h1>
@@ -82,11 +92,36 @@ class App extends React.Component {
         <button onClick={this.handleNewDB.bind(this)}> Database +</button>
         <button onClick={this.handleAllDelete.bind(this)}> Clear Sketch</button>
         <Svg>
-          {this.state.newNode.map((node, i)=> {return <Node key={i} index={i + 1} clientForm={this.toggleClientRoutesForm.bind(this)}/>})}
+          {this.state.newNode.map((node, i) => { 
+            return <Node 
+                      key={i} 
+                      index={i + 1}
+                      getIndex={this.updateClientIndex}
+                      />})}
+
           {this.state.newServer.map(server => server)}
           {this.state.newDB.map(db => db)}
         </Svg>
-        {clientForm}
+        {showRoutes}
+        {/* <div>
+          <form>
+            <h3> Client: {this.state.clientIndex} </h3>
+           
+            <p> Get: 
+                  <input 
+                    placeholder="Enter Get Route Details" 
+                    value={this.state.clientGet} 
+                    onChange={this.updateGetDetails.bind(this)}/> </p>
+
+             <p> Post: 
+               <input  
+                  placeholder="Enter Get Route Details" 
+                  value={this.state.clientPost} 
+                  onChange={this.updatePostDetails.bind(this)} /> </p>
+           
+            <button> Save </button>
+          </form>
+        </div> */}
       </div>
      
     )
